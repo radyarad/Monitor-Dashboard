@@ -75,7 +75,6 @@ const Page: React.FC = () => {
             setStatus("online");
             performUpdate();
           }, 1000);
-          // cleanup nested
           return () => clearTimeout(r2);
         }, 3000);
         return () => clearTimeout(r1);
@@ -90,18 +89,21 @@ const Page: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-white p-8">
-      <div className="flex flex-col flex-1">
-        {/* Header */}
-        <HeaderBar currentTime={currentTime} />
+    <div className="min-h-screen grid grid-rows-[auto,1fr,auto] bg-gradient-to-br from-gray-50 to-white p-6">
+      {/* Row 1: Header */}
+      <HeaderBar currentTime={currentTime} />
 
-        {/* Error Banner */}
-        <ErrorBanner status={status} />
+      {/* Row 2: Main (ikut mengisi 1fr) */}
+      <main className="flex flex-col">
+        {/* Tempatkan ErrorBanner di dalam main agar tidak menambah tinggi luar */}
+        <div className="mb-4">
+          <ErrorBanner status={status} />
+        </div>
 
-        {/* Main content grows to fill */}
-        <div className="flex-1 flex flex-col justify-center">
-          {/* Main Stats Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
+        {/* Konten utama TANPA justify-center supaya tidak bikin gap vertikal besar */}
+        <div className="flex-1 flex flex-col">
+          {/* Main Stats Grid — kecilkan gap & margin */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
             {/* Total Inside */}
             <div className="lg:col-span-2">
               <StatCard
@@ -132,8 +134,8 @@ const Page: React.FC = () => {
             />
           </div>
 
-          {/* Secondary Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Secondary Stats Grid — kecilkan gap */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <StatCard
               title="PHL & Kontraktor"
               value={data.kontraktor}
@@ -141,7 +143,6 @@ const Page: React.FC = () => {
               isLoading={isLoading}
               status={status}
             />
-
             <StatCard
               title="Praktikan"
               value={data.praktikan}
@@ -151,10 +152,10 @@ const Page: React.FC = () => {
             />
           </div>
         </div>
+      </main>
 
-        {/* Footer selalu di bawah */}
-        <FooterBar />
-      </div>
+      {/* Row 3: Footer */}
+      <FooterBar />
     </div>
   );
 };
