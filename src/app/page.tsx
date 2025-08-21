@@ -90,21 +90,16 @@ const Page: React.FC = () => {
 
   return (
     <div className="min-h-screen grid grid-rows-[auto,1fr,auto] bg-gradient-to-br from-gray-50 to-white p-6">
-      {/* Row 1: Header */}
       <HeaderBar currentTime={currentTime} />
 
-      {/* Row 2: Main (ikut mengisi 1fr) */}
       <main className="flex flex-col">
-        {/* Tempatkan ErrorBanner di dalam main agar tidak menambah tinggi luar */}
         <div className="mb-4">
           <ErrorBanner status={status} />
         </div>
 
-        {/* Konten utama TANPA justify-center supaya tidak bikin gap vertikal besar */}
         <div className="flex-1 flex flex-col">
-          {/* Main Stats Grid — kecilkan gap & margin */}
+          {/* Main Stats */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
-            {/* Total Inside */}
             <div className="lg:col-span-2">
               <StatCard
                 title="Total Inside S04"
@@ -121,6 +116,7 @@ const Page: React.FC = () => {
               title="Karyawan PKC"
               value={data.karyawanPKC}
               icon={Briefcase}
+              color="bg-blue-700 text-white"
               isLoading={isLoading}
               status={status}
             />
@@ -129,24 +125,28 @@ const Page: React.FC = () => {
               title="Visitor"
               value={data.visitor}
               icon={Building2}
+              color="bg-yellow-500 text-white"
               isLoading={isLoading}
               status={status}
             />
           </div>
 
-          {/* Secondary Stats Grid — kecilkan gap */}
+          {/* Secondary Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <StatCard
               title="PHL & Kontraktor"
               value={data.kontraktor}
               icon={Wrench}
+              color="bg-red-600 text-white"
               isLoading={isLoading}
               status={status}
             />
+
             <StatCard
               title="Praktikan"
               value={data.praktikan}
               icon={GraduationCap}
+              color="bg-purple-600 text-white"
               isLoading={isLoading}
               status={status}
             />
@@ -154,7 +154,6 @@ const Page: React.FC = () => {
         </div>
       </main>
 
-      {/* Row 3: Footer */}
       <FooterBar />
     </div>
   );
